@@ -9,7 +9,6 @@ Welcome to the Interactive Recipe Finder Application! This application allows us
 
 - [About the Application](#about-the-application)
 - [Features](#features)
-- [Screenshots](#screenshots)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -28,12 +27,6 @@ The Interactive Recipe Finder Application is a web-based tool that helps users d
 - **Recipe Details**: View detailed information about recipes, including ingredients and measures.
 - **Favorites Management**: Add and remove recipes from your favorites list.
 - **Responsive Design**: Optimized for both desktop and mobile devices.
-
-## Screenshots
-
-![Homepage](./screenshots/homepage.png)
-![Recipe Details](./screenshots/recipe-details.png)
-![Favorites](./screenshots/favorites.png)
 
 ## Getting Started
 
