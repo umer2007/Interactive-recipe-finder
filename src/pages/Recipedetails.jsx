@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { FaArrowLeft } from 'react-icons/fa';
+import { Spin } from 'antd';
+import { Link } from 'react-router-dom';
 
 const Recipedetails = () => {
   const { id } = useParams();
   const [meal, setMeal] = useState(null);
+
 
   useEffect(() => {
     axios
@@ -26,8 +29,8 @@ const Recipedetails = () => {
   if (!meal) {
     return (
       <div className="flex items-center justify-center h-screen bg-gray-100">
-        <div className="animate-spin rounded-full h-20 w-20 border-t-2 border-b-2 border-gray-900"></div>
-      </div>
+              <Spin size='large' />
+              </div>
     );
   }
 
@@ -42,6 +45,15 @@ const Recipedetails = () => {
     return ingredients;
   };
 
+  const renderYoutubeLinks = () => {
+    const videoLinks = []
+    const link = meal.strYoutube;
+    if (link) {
+      videoLinks.push(link);
+    }
+    return videoLinks;
+  }
+
   const renderMeasures = () => {
     const measures = [];
     for (let i = 1; i <= 20; i++) {
@@ -54,10 +66,10 @@ const Recipedetails = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 bg-white rounded-lg shadow-lg">
+    <div className="container mx-auto px-4 py-8 bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400 rounded-lg shadow-lg mt-4 mb-4">
       <div className="flex items-center mb-8">
-        <FaArrowLeft className="text-gray-500 cursor-pointer" onClick={() => history.back()} />
-        <h1 className="text-3xl font-bold ml-4">{meal.strMeal}</h1>
+        <FaArrowLeft className="text-white cursor-pointer" onClick={() => history.back()} />
+        <h1 className="text-3xl font-bold ml-4 text-white">{meal.strMeal}</h1>
       </div>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-1/2">
@@ -65,28 +77,42 @@ const Recipedetails = () => {
             <img
               src={meal.strMealThumb}
               alt={meal.strMeal}
-              className="w-full h-auto transform hover:scale-105 transition duration-300 ease-in-out"
+              className="w-full h-auto transform hover:scale-105 transition duration-300 ease-in-out shadow-lg"
             />
           </div>
         </div>
-        <div className="w-full md:w-1/2">
-          <p className="text-lg text-gray-700"><strong>Category:</strong> {meal.strCategory}</p>
-          <h2 className="text-xl font-semibold mt-4">Ingredients:</h2>
-          <ul className="list-disc list-inside mt-2">
-          {renderIngredients().map((ingredient, index) => (
-            <li key={index} className="text-lg text-gray-700">{ingredient}</li>
-          ))}
-        </ul>
+        <div className="w-full md:w-1/2 bg-white p-4 rounded-lg shadow-md ">
+          <p className="text-lg text-gray-900 mb-4"><strong>Category:</strong> {meal.strCategory}</p>
+          <div className="grid grid-cols-2 gap-x-4">
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Ingredients:</h2>
+              <ul className="list-disc list-inside mt-2">
+                {renderIngredients().map((ingredient, index) => (
+                  <li key={index} className="text-lg text-gray-700">{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h2 className="text-xl font-semibold text-gray-900">Measures:</h2>
+              <ul className="list-disc list-inside mt-2">
+                {renderMeasures().map((measure, index) => (
+                  <li key={index} className="text-lg text-gray-700">{measure}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className=" border-gray-500 border-solid border-2 rounded-lg p-4 bg-cyan-300 mt-4">
+            <h2 className="text-xl font-semibold text-gray-900">Youtube Link:</h2>
+            <ul className="list-disc list-inside mt-2">
+              {renderYoutubeLinks().map((link, index) => (
+                <li key={index} className="text-lg text-black"><Link to={`${link}`} target='_blank'>Check video recipe</Link></li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
       <div className="mt-8">
-        
-        <h2 className="mt-6 text-xl font-semibold">Measures:</h2>
-        <ul className="list-disc list-inside mt-2">
-          {renderMeasures().map((measure, index) => (
-            <li key={index} className="text-lg text-gray-700">{measure}</li>
-          ))}
-        </ul>
+        <p className="mt-4 text-lg text-white font-semibold"><strong>Instructions:</strong> {meal.strInstructions}</p>
       </div>
     </div>
   );

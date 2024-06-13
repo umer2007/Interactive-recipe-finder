@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+
+
+.bg-background-image {
+    background-image: url("public/images/pexels-chanwalrus-958545.jpg");
+  }

@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Poppins', 'sans-serif'], // Use 'sans' key instead of directly assigning
+        'poppins': ['Poppins', 'sans-serif'],
       },
     },
   },
